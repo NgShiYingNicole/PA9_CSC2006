@@ -1,14 +1,35 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<script type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    console.log('http://' + document.domain + ':' + location.port);
+    socket.on('connect', function() {
+        socket.emit('my event', {data: 'I\'m connected!'});
+    });
+    // listen for mqtt_message events using socket, when a new message is received, display the data corresponding to the topic
+    socket.on('mqtt_message', function(data) {
+      var payload;
+      // data['topic'] to get the mqtt topic
+      // data['payload'] to get the message in the mqtt topic
+      var topic = data['topic']
+
+      if (topic == 'csc2006') {
+        console.log(data['payload']);
+        payload  = document.getElementById('subscribe_csc2006');
+        payload.innerHTML = data['payload'] + ' test test';
+      }
+    })
+  });
+</script>
 {% extends '_layout.html' %}
 {% block body %}
 <div class="container"> 
     <div class="row">
         <div class="col-3">
-            it work!
+            <div id="subscribe_csc2006"> here
         </div>
     </div>
 </div>
