@@ -45,9 +45,9 @@ Generate random sequence of dummy sensor values and send it to our clients
 @app.route('/')
 @app.route('/index')
 def index():
-    data_dic = getFarmdata()
+    data_json = getFarmdata()
     # Flatten data, To include farmId
-    df_nested_list = pd.json_normalize(data_dic, meta=['farmId'], record_path =['sensors'])
+    df_nested_list = pd.json_normalize(data_json, meta=['farmId'], record_path =['sensors'])
     table = df_nested_list.to_html(index=True)
     return render_template("dashboard.html",table=table)
 
@@ -115,8 +115,11 @@ def handle_mqtt_message(client, userdata, message):
     # Convert JSON string to dictionary
     data_dict = json.loads(message.payload.decode()) 
     writeToDatabase(data_dict)
+    # df_nested_list = pd.json_normalize(data_dict['farms'], meta=['farmId'], record_path =['sensors'])
     # emit a mqtt_message event to the socket containing the message data using socket.on in the html page
     socketio.emit('mqtt_message', data=data)
+    # dataTable = dict(topic='table'.topic,payload=df_nested_list.to_json(orient="records"))
+    # socketio.emit('mqtt_message', data=dataTable)
     # debugging purposes
     print('Received message on topic: {topic} with payload: {payload}'.format(**data))
 
