@@ -1,0 +1,5 @@
+python-engineio=4.4.0
+python-socketio=5.8.0
+flask-socketio=5.3.3
+pandas = 2.0.0
+flask-mqtt=1.1.1
