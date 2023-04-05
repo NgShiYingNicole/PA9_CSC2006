@@ -1,22 +1,10 @@
-from flask import Flask, jsonify,request, json
-from flask import sessions
-from flask import request
+from flask import Flask, json
 from flask import render_template
-from flask import redirect, url_for
 from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
-from random import random
-from threading import Lock
 import pandas as pd
 
-"""
-Background Thread
-"""
-thread = None
-thread_lock = Lock()
 app = Flask(__name__)
-# ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
-session = {}
 
 '''
 for int routes
@@ -24,23 +12,6 @@ for int routes
 def func(id):
     print(id)
 '''
-'''
-Get current date time
-'''
-# def get_current_datetime():
-#     now = datetime.now()
-#     return now.strftime("%m/%d/%Y %H:%M:%S")
-
-'''
-Generate random sequence of dummy sensor values and send it to our clients
-'''
-# def background_thread():
-#     print("Generating random sensor values")
-#     while True:
-#         dummy_sensor_value = round(random() * 100, 3)
-#         socketio.emit('mqtt_message', {'value': dummy_sensor_value})
-#         socketio.sleep(1)
-
 
 @app.route('/')
 @app.route('/index')
@@ -50,15 +21,6 @@ def index():
     df_nested_list = pd.json_normalize(data_json, meta=['farmId'], record_path =['sensors'])
     table = df_nested_list.to_html(index=True)
     return render_template("dashboard.html",table=table)
-
-# @app.route('/test')
-# def table():
-#     data_dic = getFarmdata()
-#     # Flatten data, To include farmId
-#     df_nested_list = pd.json_normalize(data_dic, meta=['farmId'], record_path =['sensors'])
-#     table = df_nested_list.to_html(index=True)
-#     return render_template("test.html",table=table)
-
 #-----------------------------------------------------------------------------------------------------------------------#
 
 app.config['MQTT_BROKER_URL'] = '192.168.246.252'
@@ -76,26 +38,6 @@ endpoint = 'endpoint'
 # initializing mqtt and socket
 mqtt_client = Mqtt(app)
 socketio = SocketIO(app)
-
-# """
-# Decorator for connect
-# """
-# @socketio.on('connect')
-# def connect():
-#     global thread
-#     print('Client connected')
-
-#     global thread
-#     with thread_lock:
-#         if thread is None:
-#             thread = socketio.start_background_task(background_thread)
-
-# """
-# Decorator for disconnect
-# """
-# @socketio.on('disconnect')
-# def disconnect():
-#     print('Client disconnected',  request.sid)
 
 # subscribe to topics on connect
 @mqtt_client.on_connect()
@@ -115,11 +57,8 @@ def handle_mqtt_message(client, userdata, message):
     # Convert JSON string to dictionary
     data_dict = json.loads(message.payload.decode()) 
     writeToDatabase(data_dict)
-    # df_nested_list = pd.json_normalize(data_dict['farms'], meta=['farmId'], record_path =['sensors'])
     # emit a mqtt_message event to the socket containing the message data using socket.on in the html page
     socketio.emit('mqtt_message', data=data)
-    # dataTable = dict(topic='table'.topic,payload=df_nested_list.to_json(orient="records"))
-    # socketio.emit('mqtt_message', data=dataTable)
     # debugging purposes
     print('Received message on topic: {topic} with payload: {payload}'.format(**data))
 
@@ -127,17 +66,6 @@ def handle_mqtt_message(client, userdata, message):
 def handle_logging(client, userdata, level, buf):
     print(level, buf)
     return
-
-
-# -------------- MQTT Routes --------------------------
-# publishing messages to broker
-# @app.route('/publish', methods=['POST'])
-# def publish_message():
-#    coord = request.form.get("coord")
-#    mqtt_client.publish(coordfromFlask, coord)
-#    return render_template('data.html')
-
-# -------------- MQTT Routes --------------------------
 
 def getFarmdata():
     data = json.loads(open('data/farmdata.json').read())
@@ -147,7 +75,7 @@ def writeToDatabase(data):
     with open('data/farmdata.json', 'r+') as file:
         # First we load existing data into a dict.
         file_data = json.load(file)
-        # Join new_data with file_data inside emp_details
+        # Join new_data with file_data inside records
         for farm in data["farms"]:
             file_data["records"].append(farm)
         # Sets file's current position at offset.

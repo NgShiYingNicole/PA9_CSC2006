@@ -362,6 +362,17 @@
                     "timestamp": "21:51:21"
                 }
             ]
+        },
+        {
+            "farmId": "F2",
+            "sensors": [
+                {
+                    "sensorID": "S1",
+                    "temp": "25.0",
+                    "humidity": "62.0",
+                    "timestamp": "22:52:23"
+                }
+            ]
         }
     ]
 }
