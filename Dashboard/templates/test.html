@@ -27,10 +27,8 @@
 {% extends '_layout.html' %}
 {% block body %}
 <div class="container"> 
-    <div class="row">
-        <div class="col-3">
-            <div id="subscribe_csc2006"> here
-        </div>
-    </div>
+  <div>
+    {{ table | safe }}
+  </div>
 </div>
 {% endblock %}

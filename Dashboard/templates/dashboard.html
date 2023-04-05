@@ -6,23 +6,35 @@
 
 <script type="text/javascript" charset="utf-8">
   /* ---------------------- RECEVING DATA FROM M5 START ---------------------- */
-
   $(document).ready(function() {
     var socket = io.connect('http://' + document.domain + ':' + location.port);
     console.log('http://' + document.domain + ':' + location.port);
     // listen for mqtt_message events using socket, when a new message is received, display the data corresponding to the topic
     socket.on('mqtt_message', function(data) {
+      var parsed = JSON.parse(data['payload']);
+      console.log(parsed);
       var payload;
       // data['topic'] to get the mqtt topic
       // data['payload'] to get the message in the mqtt topic
       var topic = data['topic']
-      console.log(data['topic']);
-      console.log(data['payload']);
-      // if (topic == 'updateSensorData') {
-      //   console.log(data['value']);
-      //   payload  = document.getElementById('subscribe_wheelvelocityl');
-      //   payload.innerHTML = data['value'] + 'cm/s';
-      // }
+      //console.log(data['topic']);
+      //console.log(data['payload']);
+      if (topic == 'csc2006') {
+        //console.log(data['payload']);
+        payload  = document.getElementById('subscribe_latestmqttmsg');
+
+        var display;
+        parsed.farms.forEach(element => {
+          display += "<p>farm: " + element.farmId + "</p>";
+          element.sensors.forEach(sensor => {
+            display += "<p>sensor id: " + sensor.sensorID +"</p>";
+            display += "<p>sensor temp: " + sensor.temp +"</p>";
+            display += "<p>sensor humidity: " + sensor.humidity +"</p>";
+          });
+          display += "<p>timestamp: " + element.timestamp + "</p>";
+        });
+        payload.innerHTML = display;
+      }
     })
   });
 </script>
@@ -31,25 +43,19 @@
 <div class="container"> 
   <div class="row">
     <div class="col-3">
-      Left Wheel Velocity: <div id="subscribe_wheelvelocityl"></div>
+      Latest mqtt message: <div id="subscribe_latestmqttmsg"></div>
       <br/>
-      Right Wheel Velocity: <div id="subscribe_wheelvelocityr"></div>
-      <br/>
-      Barcode Data: <div id="subscribe_barcode"></div>
-      <br/>
-      Distance from sensor: <div id="subscribe_distancefromsensor"></div>
-      <br/>
-      Height of hump: <div id="subscribe_heightofhump"></div>
-      <br/>
-      Map Coordinates: <div id="subscribe_mapcoordinates"></div>
-    </div>
-  <div class="container">
-    <div id = "table">
-
-    </div>
-    <div class="main" >
-    
     </div>
   </div>
+  <div id = "latesttable">
+    <table id="latestlog">
+    </table>
+  </div>
+  <div id = "table">
+    <div>
+      {{ table | safe }}
+    </div>
+  </div>
+</div>
 <!---------------------- RECEIVING DATA FROM M5 END ---------------------->
 {% endblock %}

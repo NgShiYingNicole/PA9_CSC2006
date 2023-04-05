@@ -7,6 +7,7 @@ from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
 from random import random
 from threading import Lock
+import pandas as pd
 
 """
 Background Thread
@@ -44,17 +45,19 @@ Generate random sequence of dummy sensor values and send it to our clients
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template("dashboard.html")
+    data_dic = getFarmdata()
+    # Flatten data, To include farmId
+    df_nested_list = pd.json_normalize(data_dic, meta=['farmId'], record_path =['sensors'])
+    table = df_nested_list.to_html(index=True)
+    return render_template("dashboard.html",table=table)
 
-
-# @app.route('/map')
-# def map():
-#     return render_template("map.html")
-
-# @app.route('/data')
-# def getData():
-#     return render_template("data.html")
-
+# @app.route('/test')
+# def table():
+#     data_dic = getFarmdata()
+#     # Flatten data, To include farmId
+#     df_nested_list = pd.json_normalize(data_dic, meta=['farmId'], record_path =['sensors'])
+#     table = df_nested_list.to_html(index=True)
+#     return render_template("test.html",table=table)
 
 #-----------------------------------------------------------------------------------------------------------------------#
 
@@ -67,8 +70,7 @@ app.config['MQTT_KEEPALIVE'] = 300  # Set KeepAlive time in seconds
 app.config['MQTT_TLS_ENABLED'] = False  # If your server supports TLS, set it True
 
 # declaring mqtt routes
-csc2006 = 'csc2006' #
-
+csc2006 = 'csc2006' 
 
 # initializing mqtt and socket
 mqtt_client = Mqtt(app)
@@ -94,7 +96,7 @@ socketio = SocketIO(app)
 # def disconnect():
 #     print('Client disconnected',  request.sid)
 
-# # subscribe to topics on connect
+# subscribe to topics on connect
 @mqtt_client.on_connect()
 def handle_connect(client, userdata, flags, rc):
    if rc == 0:
@@ -107,7 +109,10 @@ def handle_connect(client, userdata, flags, rc):
 @mqtt_client.on_message()
 def handle_mqtt_message(client, userdata, message):
     print(message.topic)
-    data = dict(topic=message.topic,payload=message.payload.decode()) 
+    data = dict(topic=message.topic,payload=message.payload.decode())
+    # Convert JSON string to dictionary
+    data_dict = json.loads(message.payload.decode()) 
+    writeToDatabase(data_dict)
     # emit a mqtt_message event to the socket containing the message data using socket.on in the html page
     socketio.emit('mqtt_message', data=data)
     # debugging purposes
@@ -128,6 +133,23 @@ def handle_logging(client, userdata, level, buf):
 #    return render_template('data.html')
 
 # -------------- MQTT Routes --------------------------
+
+def getFarmdata():
+    data = json.loads(open('data/farmdata.json').read())
+    return data['records']
+
+def writeToDatabase(data):
+    with open('data/farmdata.json', 'r+') as file:
+        # First we load existing data into a dict.
+        file_data = json.load(file)
+        # Join new_data with file_data inside emp_details
+        for farm in data["farms"]:
+            file_data["records"].append(farm)
+        # Sets file's current position at offset.
+        file.seek(0)
+        # convert back to json.
+        json.dump(file_data, file, indent = 4)
+        return
 
 if __name__  == "__main__":
     socketio.run(app, host='127.0.0.1', port=5000, use_reloader=True, debug=True)
