@@ -70,7 +70,8 @@ app.config['MQTT_KEEPALIVE'] = 300  # Set KeepAlive time in seconds
 app.config['MQTT_TLS_ENABLED'] = False  # If your server supports TLS, set it True
 
 # declaring mqtt routes
-csc2006 = 'csc2006' 
+mqtt_farm = 'mqtt_farm' 
+endpoint = 'endpoint' 
 
 # initializing mqtt and socket
 mqtt_client = Mqtt(app)
@@ -101,7 +102,8 @@ socketio = SocketIO(app)
 def handle_connect(client, userdata, flags, rc):
    if rc == 0:
        print('Connected successfully')
-       mqtt_client.subscribe(csc2006)
+       mqtt_client.subscribe(mqtt_farm)
+       mqtt_client.subscribe(endpoint)
    else:
        print('Bad connection. Code:', rc)
 

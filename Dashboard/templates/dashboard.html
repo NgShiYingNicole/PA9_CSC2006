@@ -17,21 +17,32 @@
       // data['topic'] to get the mqtt topic
       // data['payload'] to get the message in the mqtt topic
       var topic = data['topic']
-      //console.log(data['topic']);
-      //console.log(data['payload']);
-      if (topic == 'csc2006') {
-        //console.log(data['payload']);
-        payload  = document.getElementById('subscribe_latestmqttmsg');
+      if (topic == 'mqtt_farm') {
+        payload  = document.getElementById('subscribe_mqtt_farm');
 
-        var display;
+        var display = "";
         parsed.farms.forEach(element => {
           display += "<p>farm: " + element.farmId + "</p>";
           element.sensors.forEach(sensor => {
             display += "<p>sensor id: " + sensor.sensorID +"</p>";
             display += "<p>sensor temp: " + sensor.temp +"</p>";
             display += "<p>sensor humidity: " + sensor.humidity +"</p>";
+            display += "<p>timestamp: " + sensor.timestamp + "</p>";
           });
-          display += "<p>timestamp: " + element.timestamp + "</p>";
+        });
+        payload.innerHTML = display;
+      }
+      if (topic == 'endpoint') {
+        payload  = document.getElementById('subscribe_endpoint');
+        var display = "";
+        parsed.farms.forEach(element => {
+          display += "<p>farm: " + element.farmId + "</p>";
+          element.sensors.forEach(sensor => {
+            display += "<p>sensor id: " + sensor.sensorID +"</p>";
+            display += "<p>sensor temp: " + sensor.temp +"</p>";
+            display += "<p>sensor humidity: " + sensor.humidity +"</p>";
+            display += "<p>timestamp: " + sensor.timestamp + "</p>";
+          });
         });
         payload.innerHTML = display;
       }
@@ -42,8 +53,14 @@
 <!---------------------- RECEIVING DATA FROM M5 START ---------------------->
 <div class="container"> 
   <div class="row">
-    <div class="col-3">
-      Latest mqtt message: <div id="subscribe_latestmqttmsg"></div>
+    <div class="col-12">
+      Latest mqtt farm: <div id="subscribe_mqtt_farm"></div>
+      <br/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      Latest endpoint: <div id="subscribe_endpoint"></div>
       <br/>
     </div>
   </div>
