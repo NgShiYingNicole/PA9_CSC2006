@@ -78,101 +78,13 @@
             ]
         },
         {
-            "farmId": "F1",
+            "farmId": "F2",
             "sensors": [
                 {
                     "sensorID": "S1",
                     "temp": "25.0",
                     "humidity": "62.0",
-                    "timestamp": "20:23:04"
-                }
-            ]
-        },
-        {
-            "farmId": "F1",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "20:24:14"
-                }
-            ]
-        },
-        {
-            "farmId": "F1",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "20:24:38"
-                }
-            ]
-        },
-        {
-            "farmId": "F1",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "20:25:05"
-                }
-            ]
-        },
-        {
-            "farmId": "F1",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "20:25:27"
-                }
-            ]
-        },
-        {
-            "farmId": "F1",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "20:30:32"
-                }
-            ]
-        },
-        {
-            "farmId": "F1",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "20:32:07"
-                }
-            ]
-        },
-        {
-            "farmId": "F1",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "20:34:07"
-                }
-            ]
-        },
-        {
-            "farmId": "F1",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "20:36:51"
+                    "timestamp": "13:04:11"
                 }
             ]
         },
@@ -183,7 +95,7 @@
                     "sensorID": "S1",
                     "temp": "25.0",
                     "humidity": "62.0",
-                    "timestamp": "20:54:53"
+                    "timestamp": "13:05:45"
                 }
             ]
         },
@@ -194,7 +106,7 @@
                     "sensorID": "S1",
                     "temp": "25.0",
                     "humidity": "62.0",
-                    "timestamp": "20:56:31"
+                    "timestamp": "13:19:19"
                 }
             ]
         },
@@ -205,7 +117,7 @@
                     "sensorID": "S1",
                     "temp": "25.0",
                     "humidity": "62.0",
-                    "timestamp": "20:56:35"
+                    "timestamp": "13:19:46"
                 }
             ]
         },
@@ -216,78 +128,12 @@
                     "sensorID": "S1",
                     "temp": "25.0",
                     "humidity": "62.0",
-                    "timestamp": "20:56:36"
+                    "timestamp": "13:33:01"
                 }
             ]
         },
         {
             "farmId": "F2",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "21:00:34"
-                }
-            ]
-        },
-        {
-            "farmId": "F2",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "21:01:40"
-                }
-            ]
-        },
-        {
-            "farmId": "F2",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "21:02:06"
-                }
-            ]
-        },
-        {
-            "farmId": "F2",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "21:09:29"
-                }
-            ]
-        },
-        {
-            "farmId": "F2",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "21:22:52"
-                }
-            ]
-        },
-        {
-            "farmId": "F1",
-            "sensors": [
-                {
-                    "sensorID": "S1",
-                    "temp": "25.0",
-                    "humidity": "62.0",
-                    "timestamp": "17:46:08"
-                }
-            ]
-        },
-        {
-            "farmId": "F1",
             "sensors": [
                 {
                     "sensorID": "S1",
@@ -304,7 +150,7 @@
                     "sensorID": "S1",
                     "temp": "25.0",
                     "humidity": "62.0",
-                    "timestamp": "21:24:16"
+                    "timestamp": "17:46:08"
                 }
             ]
         },
@@ -315,7 +161,29 @@
                     "sensorID": "S1",
                     "temp": "25.0",
                     "humidity": "62.0",
-                    "timestamp": "21:24:35"
+                    "timestamp": "13:33:10"
+                }
+            ]
+        },
+        {
+            "farmId": "F2",
+            "sensors": [
+                {
+                    "sensorID": "S1",
+                    "temp": "25.0",
+                    "humidity": "62.0",
+                    "timestamp": "17:46:08"
+                }
+            ]
+        },
+        {
+            "farmId": "F2",
+            "sensors": [
+                {
+                    "sensorID": "S1",
+                    "temp": "25.0",
+                    "humidity": "62.0",
+                    "timestamp": "13:33:28"
                 }
             ]
         },
@@ -353,24 +221,79 @@
             ]
         },
         {
-            "farmId": "F2",
+            "farmId": "F1",
             "sensors": [
                 {
                     "sensorID": "S1",
                     "temp": "25.0",
                     "humidity": "62.0",
-                    "timestamp": "21:51:21"
+                    "timestamp": "13:36:52"
                 }
             ]
         },
         {
-            "farmId": "F2",
+            "farmId": "F1",
             "sensors": [
                 {
                     "sensorID": "S1",
                     "temp": "25.0",
                     "humidity": "62.0",
-                    "timestamp": "22:52:23"
+                    "timestamp": "13:37:49"
+                }
+            ]
+        },
+        {
+            "farmId": "F1",
+            "sensors": [
+                {
+                    "sensorID": "S1",
+                    "temp": "25.0",
+                    "humidity": "62.0",
+                    "timestamp": "13:49:07"
+                }
+            ]
+        },
+        {
+            "farmId": "F1",
+            "sensors": [
+                {
+                    "sensorID": "S1",
+                    "temp": "25.0",
+                    "humidity": "62.0",
+                    "timestamp": "13:49:09"
+                }
+            ]
+        },
+        {
+            "farmId": "F1",
+            "sensors": [
+                {
+                    "sensorID": "S1",
+                    "temp": "25.0",
+                    "humidity": "62.0",
+                    "timestamp": "13:49:10"
+                }
+            ]
+        },
+        {
+            "farmId": "F1",
+            "sensors": [
+                {
+                    "sensorID": "S1",
+                    "temp": "25.0",
+                    "humidity": "62.0",
+                    "timestamp": "13:49:28"
+                }
+            ]
+        },
+        {
+            "farmId": "F1",
+            "sensors": [
+                {
+                    "sensorID": "S1",
+                    "temp": "25.0",
+                    "humidity": "62.0",
+                    "timestamp": "13:49:29"
                 }
             ]
         }

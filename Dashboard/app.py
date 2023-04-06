@@ -23,7 +23,7 @@ def index():
     return render_template("dashboard.html",table=table)
 #-----------------------------------------------------------------------------------------------------------------------#
 
-app.config['MQTT_BROKER_URL'] = '192.168.246.252'
+app.config['MQTT_BROKER_URL'] = '192.168.246.251'
 app.config['MQTT_BROKER_PORT'] = 1883
 app.config['MQTT_CLIENT_ID'] = ''
 app.config['MQTT_USERNAME'] = ''
